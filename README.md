@@ -2,7 +2,7 @@
 [![npm](https://img.shields.io/npm/v/homebridge-plex-webhooks.svg)](https://www.npmjs.com/package/homebridge-plex-webhooks)
 [![npm](https://img.shields.io/npm/dt/homebridge-plex-webhooks.svg)](https://www.npmjs.com/package/homebridge-plex-webhooks)
 
-This plugin based on [Plex Webhooks](https://support.plex.tv/articles/115002267687-webhooks/) which can provide smooth and fast automation experience. It creates an occupancy sensor in your Home app what can be used to create custom automations like triggering movie lights 
+This plugin based on [Plex Webhooks](https://support.plex.tv/articles/115002267687-webhooks/) which can provide smooth and fast automation experience. It creates an occupancy sensor in your Home app what can be used to create custom automations like triggering movie lights.
 
 Please note, Webhooks are a premium feature and require an active [Plex Pass Subscription](https://support.plex.tv/articles/categories/intro-to-plex/plex-pass-subscriptions/) for the Plex Media Server account. In case you don't own Plex Pass Subscription, check out this plugin as an alternate: [homebridge-plex-v2](https://github.com/iharosi/homebridge-plex-v2)
 
@@ -40,7 +40,7 @@ Sample config:
       "filter": [
         {
           "Account.title": "plex-user",
-          "Player.title": "player-name",
+          "Player.title": "player-name"
         },
         {
           "Account.title": "other-plex-user",
@@ -64,7 +64,7 @@ After you launch homebridge, look for the listening URL:
 
 ![homebridge console](images/homebridge_console.png)
 
-Add this URL as a webhook URL on you [Plex Media Server Webhooks setting page](https://app.plex.tv/desktop#!/settings/webhooks):  
+Add this URL as a webhook URL on your [Plex Media Server Webhooks settings page](https://app.plex.tv/desktop#!/settings/webhooks):  
 
 ![pms webhooks settings](images/pms_webhooks.png)
 

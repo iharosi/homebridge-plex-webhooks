@@ -20,12 +20,13 @@ If you don't have a Homebridge installation yet, head over to the [project docum
 
 You can use the following options in your homebridge config:
 
-Variable | Description
--------- | -----------
-`accessory` | Must be `PlexWebhooksServer`
-`name` | Whatever you want the accessory to be named in Home app
-`host` | In case you have multiple IPs, you can set which the server should listen on. Can be omitted. Defaults to your first valid IP address.
-`port` | The port where the server should listen. Can be omitted. Defaults to 32401.
+Variable | Optional/Required | Description
+-------- | ----------------- | -----------
+`accessory` | **required** | Must be `PlexWebhooksServer`.
+`name` | **required** | Whatever you want the accessory to be named in Home app.
+`host` | optional | In case you have multiple interfaces with multiple IP addresses, you can set where the server should listen on. Defaults to your primary interface.
+`port` | optional | The port where the server should listen on. Defaults to **32401**.
+`filter` | optional | An array of filter rulesets. You will get ideas from the [Webhooks support article](https://support.plex.tv/articles/115002267687-webhooks/#toc-3).
 
 Sample config:
 
@@ -35,13 +36,40 @@ Sample config:
       "accessory": "PlexWebhooksServer",
       "name": "Plex",
       "host": "192.168.12.123",
-      "port": "12345"
+      "port": "12345",
+      "filter": [
+        {
+          "Account.title": "plex-user",
+          "Player.title": "player-name",
+        },
+        {
+          "Account.title": "other-plex-user",
+          "Player.title": "other-player-name",
+          "Metadata.librarySectionType": "movie"
+        },
+        {
+          "Server.title": "other-plex-server-name",
+          "Account.title": "other-plex-user",
+          "Player.title": "other-player-name",
+          "Metadata.librarySectionType": "show"
+        }
+      ]
     }
   ]
 ```
 
+## Set up Plex Media Server
+
+After you launch homebridge, look for the listening URL:  
+
+![homebridge console](images/homebridge_console.png)
+
+Add this URL as a webhook URL on you [Plex Media Server Webhooks setting page](https://app.plex.tv/desktop#!/settings/webhooks):  
+
+![pms webhooks settings](images/pms_webhooks.png)
+
 ## Issues, feature requests
 
-In case you found a bug please [raise a ticket](https://github.com/iharosi/homebridge-plex-webhooks/issues/new/choose) and give as many details as you can.
+Before you [raise a ticket](https://github.com/iharosi/homebridge-plex-webhooks/issues/new/choose), try to run Homebridge with the `--debug` option and look for the payload in console. Make sure your config is valid and your filter rules are correct.
 
-If you would like to suggest a feature feel free to open a ticket, however I can't promise anything. :)
+In case you would like to suggest a feature feel free to open a ticket and use the `feature request` label.

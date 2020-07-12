@@ -26,7 +26,7 @@ Variable | Optional/Required | Description
 `name` | **required** | Whatever you want the accessory to be named in Home app.
 `host` | optional | In case you have multiple interfaces with multiple IP addresses, you can set where the server should listen on. Defaults to your primary interface.
 `port` | optional | The port where the server should listen on. Defaults to **32401**.
-`filter` | optional | An array of filter rulesets. You will get ideas from the [Webhooks support article](https://support.plex.tv/articles/115002267687-webhooks/#toc-3).
+`filter` | optional | An array of filter rulesets. You will get ideas from the [Webhooks support article](https://support.plex.tv/articles/115002267687-webhooks/#toc-3). You can find your payload in your homebridge log if you run homebridge in debug mode: `homebridge --debug`.
 
 Sample config:
 
@@ -56,6 +56,36 @@ Sample config:
       ]
     }
   ]
+```
+
+In case you have multiple [PMS](https://www.plex.tv/media-server-downloads/), you have to use different ports, and add every server URL to PMS webhooks.  
+**Please note**, PMS will push payload to every defined webhook URL, so you need to use filter to differentiate them. Example:
+
+```json
+"accessories": [
+  {
+    "accessory": "PlexWebhooksServer",
+    "name": "Plex - Living room",
+    "port": "32000",
+    "filter": [
+      {
+        "Server.title": "living-room-pms",
+        "Player.title": "apple-tv"
+      },
+    ]
+  },
+  {
+    "accessory": "PlexWebhooksServer",
+    "name": "Plex - Bedroom",
+    "port": "21000",
+    "filter": [
+      {
+        "Server.title": "bedroom-pms",
+        "Player.title": "mac-pro"
+      },
+    ]
+  }
+]
 ```
 
 ## Set up Plex Media Server

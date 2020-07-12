@@ -4,13 +4,13 @@ const express = require('express');
 const ip = require('ip');
 const { get, map } = require('lodash');
 const multer = require('multer');
+const ordinal = require('ordinal');
 const {
-  author,
+  author: packageAuthor,
   name: packageName,
-  version
+  version: packageVersion
 } = require('./package.json');
 
-const app = express();
 const upload = multer({ dest: '/tmp/' });
 const validPlayEvents = [
   'media.play',
@@ -40,13 +40,14 @@ class PlexWebhooksServer {
       .on('get', this.getStatus.bind(this));
     this.informationService = new Service
       .AccessoryInformation()
-      .setCharacteristic(Characteristic.FirmwareRevision, version)
-      .setCharacteristic(Characteristic.Manufacturer, author)
+      .setCharacteristic(Characteristic.FirmwareRevision, packageVersion)
+      .setCharacteristic(Characteristic.Manufacturer, packageAuthor)
       .setCharacteristic(Characteristic.Model, packageName)
       .setCharacteristic(
         Characteristic.SerialNumber,
         uuid.generate(name)
       );
+    this.log.debug('config: ', this.config);
     this.launchServer();
   }
 
@@ -58,7 +59,7 @@ class PlexWebhooksServer {
   }
 
   getStatus(callback) {
-    this.log.info(`Occupancy sensor state has requested: ${this.state}`);
+    this.log.info(`State has requested: ${this.state}`);
     callback(undefined, validPlayEvents.includes(this.state));
   }
 
@@ -71,13 +72,19 @@ class PlexWebhooksServer {
 
   processPayload(payload) {
     const { filter } = this.config;
-    const match = filter.map(ruleSet => {
+    const match = filter.map((ruleSet, key) => {
+      const index = key + 1;
+
+      this.log.debug(
+        `Checking the ${ordinal(index)} ruleset:`
+      );
+
       return map(ruleSet, (value, key) => {
         const foundValue = get(payload, key);
         const isMatched = foundValue === value;
 
         this.log.debug(
-          `Looking for "${value}" at "${key}", found "${foundValue}".`
+          ` ${isMatched ? '+' : '-'} Looking for "${value}" at "${key}", found "${foundValue}".`
         );
 
         return isMatched;
@@ -87,10 +94,10 @@ class PlexWebhooksServer {
     }).reduce((acc, cur) => acc || cur, false);
 
     if (match) {
-      this.log.debug(`Filter rulesets passed, updating status!`);
+      this.log.debug(`One of the rulesets has passed, updating state!`);
       this.setStatus(payload.event);
     } else {
-      this.log.debug(`Some filter rulesets did not pass, skipping status change!`);
+      this.log.debug(`None of the rulesets have passed, skipping state change!`);
     }
   }
 
@@ -103,11 +110,12 @@ class PlexWebhooksServer {
     this.occupancyService
       .getCharacteristic(this.hap.Characteristic.OccupancyDetected)
       .updateValue(validPlayEvents.includes(this.state));
-    this.log.info(`Occupancy sensor state change has triggered: ${this.state}`);
+    this.log.info(`State has changed to: ${this.state}`);
   }
 
   launchServer() {
     const { host, port } = this.config;
+    const app = express();
 
     app.post('/', upload.single('thumb'), (req, res) => {
       const rawPayload = get(req, 'body.payload', '');

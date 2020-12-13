@@ -1,0 +1,202 @@
+{
+  "pluginAlias": "PlexWebhooks",
+  "pluginType": "platform",
+  "singular": true,
+  "headerDisplay": "Once you've ready with the configuration, you'll find the listening URL in the Homebridge logs. The URL should be added on your Plex Media Server's Webhooks page. You can find more details about the configuration on the [plugin's GitHub page](https://github.com/iharosi/homebridge-plex-webhooks/blob/master/README.md).",
+  "footerDisplay": "If you like this plugin, support the developer via [paypal](https://www.paypal.me/iharosi).",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "default": "Plex Webhooks Platform",
+        "minLength": 3,
+        "required": true
+      },
+      "sensors": {
+        "type": "array",
+        "required": true,
+        "items": {
+          "type": "object",
+          "title": "Sensor",
+          "properties": {
+            "name": {
+              "title": "Name",
+              "type": "string",
+              "default": "Plex Movies",
+              "description": "This will be the name of your sensor in Home app",
+              "required": true
+            },
+            "filters": {
+              "type": "array",
+              "title": "Filter rulesets",
+              "items": {
+                "type": "array",
+                "title": "Path-value pairs",
+                "items": {
+                  "type": "object",
+                  "title": "One path-value pair",
+                  "properties": {
+                    "path": {
+                      "title": "The path of the property to get",
+                      "type": "string",
+                      "placeholder": "e.g.: Player.title",
+                      "typeahead": {
+                        "source": [
+                          "user",
+                          "owner",
+                          "Account.id",
+                          "Account.title",
+                          "Server.title",
+                          "Server.uuid",
+                          "Player.local",
+                          "Player.publicAddress",
+                          "Player.title",
+                          "Player.uuid",
+                          "Metadata.librarySectionType",
+                          "Metadata.type",
+                          "Metadata.title",
+                          "Metadata.contentRating"
+                        ]
+                      },
+                      "required": true
+                    },
+                    "value": {
+                      "title": "The value what should be matched",
+                      "type": "string",
+                      "placeholder": "e.g.: Apple TV",
+                      "required": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "server": {
+        "type": "object",
+        "required": false,
+        "properties": {
+          "port": {
+            "title": "Port",
+            "type": "number",
+            "placeholder": "e.g.: 32401",
+            "minimum": 1024,
+            "maximum": 65535,
+            "required": false,
+            "description": "Port can be given between 1024 and 65535. In case port is omitted, the default 32401 will be used."
+          },
+          "address": {
+            "title": "IP address",
+            "type": "string",
+            "format": "ipv4",
+            "placeholder": "e.g.: 192.168.88.100",
+            "required": false,
+            "description": "The server can be forced to bind to the specified IP address. In case it's omitted, server will bind to the default interface."
+          }
+        }
+      },
+      "verbose": {
+        "title": " verbose logging",
+        "type": "boolean"
+      }
+    }
+  },
+  "layout": [
+    {
+      "key": "name"
+    },
+    {
+      "key": "sensors",
+      "title": "Occupancy sensors",
+      "type": "fieldset",
+      "expandable": true,
+      "expanded": true,
+      "orderable": false,
+      "buttonText": "Add an occupancy sensor",
+      "items": [
+        "sensors[].name",
+        {
+          "key": "sensors[].filters",
+          "title": "Filter rulesets (logical relation: OR)",
+          "type": "section",
+          "expandable": true,
+          "expanded": false,
+          "orderable": false,
+          "buttonText": "Add a filter ruleset",
+          "items": [
+            {
+              "type": "help",
+              "helpvalue": "<p class=\"primary-text\">For the specified sensor to be activated, all the given path-value pairs in the ruleset must found in Plex's payload. In case multiple rulesets have been given, at least one ruleset of path-value pairs must found in the payload.</p>"
+            },
+            {
+              "key": "sensors[].filters[]",
+              "title": "Path-value pairs (logical relation: AND)",
+              "type": "section",
+              "orderable": false,
+              "buttonText": "Add a path-value pair",
+              "items": [
+                {
+                  "key": "sensors[].filters[][]",
+                  "title": "Path-value pair",
+                  "type": "flex",
+                  "flex-flow": "row wrap",
+                  "items": [
+                    {
+                      "type": "flex",
+                      "flex-flow": "column",
+                      "items": ["sensors[].filters[][].path"]
+                    },
+                    {
+                      "type": "flex",
+                      "flex-flow": "column",
+                      "items": ["sensors[].filters[][].value"]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "server",
+      "title": "Webhooks server",
+      "type": "fieldset",
+      "expandable": true,
+      "expanded": false,
+      "items": [
+        {
+          "type": "help",
+          "helpvalue": "<p class=\"primary-text\">Listening port and IP address customization of the plugin's webhooks server</p>"
+        },
+        {
+          "type": "div",
+          "displayFlex": true,
+          "flex-direction": "row",
+          "items": [
+            "server.port",
+            "server.address"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "logging",
+      "title": "Logging",
+      "type": "fieldset",
+      "expandable": true,
+      "expanded": false,
+      "items": [
+        {
+          "type": "help",
+          "helpvalue": "<p class=\"primary-text\">For debugging purposes. With verbose logging the plugin will log Plex's payload and path-value pair matching information into the Homebridge logs.</p>"
+        },
+        "verbose"
+      ]
+    }
+  ]
+}

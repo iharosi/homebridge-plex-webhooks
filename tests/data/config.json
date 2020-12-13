@@ -1,0 +1,64 @@
+{
+  "name": "Plex Webhooks Platform",
+  "sensors": [
+    {
+      "name": "Plex Movies",
+      "filters": [
+        [
+          {
+            "path": "Metadata.librarySectionType",
+            "value": "movie"
+          },
+          {
+            "path": "Player.title",
+            "value": "Safari"
+          }
+        ],
+        [
+          {
+            "path": "Metadata.librarySectionType",
+            "value": "movie"
+          },
+          {
+            "path": "Player.title",
+            "value": "Apple TV"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Plex Shows",
+      "filters": [
+        [
+          {
+            "path": "Metadata.librarySectionType",
+            "value": "show"
+          },
+          {
+            "path": "Player.title",
+            "value": "Roku"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Config error",
+      "filters": [
+        null,
+        [
+          null,
+          {
+            "path": "Metadata.librarySectionType",
+            "value": "show"
+          },
+          {
+            "path": "Player.title",
+            "value": "Roku"
+          }
+        ]
+      ]
+    }
+  ],
+  "verbose": true,
+  "platform": "PlexWebhooks"
+}

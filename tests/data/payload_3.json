@@ -1,0 +1,18 @@
+{
+  "event": "media.play",
+  "user": true,
+  "owner": false,
+  "Account": {
+    "id": 1,
+    "title": "Guest"
+  },
+  "Server": {
+    "title": "test-plex"
+  },
+  "Player": {
+    "title": "Roku"
+  },
+  "Metadata": {
+    "librarySectionType": "show"
+  }
+}

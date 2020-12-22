@@ -5,9 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.4] - 2020-12-22
+### Fixed
+* Update Changelog
+
+## [2.0.3] - 2020-12-22
+### Fixed
+* Fix server configuration
+
+## [2.0.2] - 2020-12-22
+### Fixed
+* Homebridge UI config schema added to NPM release
+
+## [2.0.1] - 2020-12-22
+### Fixed
+* Missing libraries added to NPM release
+
 ## [2.0.0] - 2020-12-22
 ### Added
-
 * BREAKING CHANGES!
 * PlexWebhooks plugin is working now as a hombridge platform (instead of an accessory) to prevent unnecessary server launches and speed up the webhook triggering
 * Completely new configuration options

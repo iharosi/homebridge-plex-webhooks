@@ -24,9 +24,10 @@
     "homebridge": ">=1.0.0"
   },
   "files": [
-    "LICENSE",
+    "config.schema.json",
     "index.js",
-    "lib"
+    "lib",
+    "LICENSE"
   ],
   "license": "AGPL-3.0",
   "bugs": {

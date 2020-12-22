@@ -1,6 +1,6 @@
 {
   "name": "homebridge-plex-webhooks",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Homebridge Plex Webhooks Server",
   "main": "index.js",
   "scripts": {

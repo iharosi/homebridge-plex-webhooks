@@ -19,7 +19,7 @@ Can be found on the **Status** page of Homebridge UI.
 
 **Plex Webhooks Server plugin version**
 Can be found on the **Plugin** page of Homebridge UI.
- - [e.g. 2.0.4]
+ - [e.g. v2.0.5]
 
 **Configuration**
 Can be found on the **Config** page of Homebridge UI.

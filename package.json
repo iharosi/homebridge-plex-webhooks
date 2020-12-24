@@ -24,10 +24,12 @@
     "homebridge": ">=1.0.0"
   },
   "files": [
+    "CHANGELOG.md",
     "config.schema.json",
     "index.js",
     "lib",
-    "LICENSE"
+    "LICENSE",
+    "README.md"
   ],
   "license": "AGPL-3.0",
   "bugs": {

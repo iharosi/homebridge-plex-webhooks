@@ -1,6 +1,10 @@
 # Plex Webhooks Server plugin for Homebridge
-[![npm](https://img.shields.io/npm/v/homebridge-plex-webhooks.svg)](https://www.npmjs.com/package/homebridge-plex-webhooks)
-[![npm](https://img.shields.io/npm/dt/homebridge-plex-webhooks.svg)](https://www.npmjs.com/package/homebridge-plex-webhooks)
+[![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)  
+[![version](https://badgen.net/npm/v/homebridge-plex-webhooks)](https://www.npmjs.com/package/homebridge-plex-webhooks)
+[![downloads](https://badgen.net/npm/dt/homebridge-plex-webhooks)](https://www.npmjs.com/package/homebridge-plex-webhooks)
+[![vulnerabilities](https://badgen.net/snyk/iharosi/homebridge-plex-webhooks)](https://snyk.io/test/github/iharosi/homebridge-plex-webhooks)  
+[![license](https://badgen.net/github/license/iharosi/homebridge-plex-webhooks)](https://github.com/iharosi/homebridge-plex-webhooks/blob/master/LICENSE)  
+[![Support via PayPal][paypal-button]][paypal-iharosi]
 
 This [Homebridge](https://github.com/homebridge/homebridge) plugin can expose occupancy sensor(s) in Home app what will trigger occupancy when media starts playing through a Plex client. Thanks to the unlimited filtering criterias, occupancy events can be controlled based on several different attributes (e.g.: Plex servers, Plex clients, Plex users, media types, media metadata). 
 

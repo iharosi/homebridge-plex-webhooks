@@ -16,7 +16,7 @@
       },
       "sensors": {
         "type": "array",
-        "required": true,
+        "minItems": 1,
         "items": {
           "type": "object",
           "title": "Sensor",
@@ -24,16 +24,18 @@
             "name": {
               "title": "Name",
               "type": "string",
-              "default": "Plex Movies",
+              "placeholder": "e.g.: Plex Movies",
               "description": "This will be the name of your sensor in Home app",
               "required": true
             },
             "filters": {
               "type": "array",
               "title": "Filter rulesets",
+              "minItems": 1,
               "items": {
                 "type": "array",
                 "title": "Path-value pairs",
+                "minItems": 1,
                 "items": {
                   "type": "object",
                   "title": "One path-value pair",
@@ -104,55 +106,62 @@
       }
     }
   },
-  "layout": [
+  "form": [
     {
       "key": "name"
     },
     {
       "key": "sensors",
-      "title": "Occupancy sensors",
-      "type": "fieldset",
-      "expandable": true,
-      "expanded": true,
-      "orderable": false,
-      "buttonText": "Add an occupancy sensor",
+      "type": "tabarray",
+      "add": "New",
+      "remove": "Delete",
+      "style": { "remove": "btn-danger" },
+      "title": "{{ value.name || 'Sensor #' + $index }}",
       "items": [
         "sensors[].name",
         {
-          "key": "sensors[].filters",
-          "title": "Filter rulesets (logical relation: OR)",
+          "key": "sensors[]",
+          "title": "Filter criterias",
           "type": "section",
           "expandable": true,
           "expanded": false,
           "orderable": false,
-          "buttonText": "Add a filter ruleset",
           "items": [
             {
               "type": "help",
               "helpvalue": "<p class=\"primary-text\">For the specified sensor to be activated, all the given path-value pairs in the ruleset must found in Plex's payload. In case multiple rulesets have been given, at least one ruleset of path-value pairs must found in the payload.</p>"
             },
             {
-              "key": "sensors[].filters[]",
-              "title": "Path-value pairs (logical relation: AND)",
+              "key": "sensors[].filters",
               "type": "section",
+              "title": "Filter rulesets (logical relation: OR)",
+              "buttonText": "Add a filter ruleset",
               "orderable": false,
-              "buttonText": "Add a path-value pair",
               "items": [
                 {
-                  "key": "sensors[].filters[][]",
-                  "title": "Path-value pair",
-                  "type": "flex",
-                  "flex-flow": "row wrap",
+                  "key": "sensors[].filters[]",
+                  "title": "Path-value pairs (logical relation: AND)",
+                  "type": "section",
+                  "orderable": false,
+                  "buttonText": "Add a path-value pair",
                   "items": [
                     {
+                      "key": "sensors[].filters[][]",
+                      "title": "Path-value pair",
                       "type": "flex",
-                      "flex-flow": "column",
-                      "items": ["sensors[].filters[][].path"]
-                    },
-                    {
-                      "type": "flex",
-                      "flex-flow": "column",
-                      "items": ["sensors[].filters[][].value"]
+                      "flex-flow": "row wrap",
+                      "items": [
+                        {
+                          "type": "flex",
+                          "flex-flow": "column",
+                          "items": ["sensors[].filters[][].path"]
+                        },
+                        {
+                          "type": "flex",
+                          "flex-flow": "column",
+                          "items": ["sensors[].filters[][].value"]
+                        }
+                      ]
                     }
                   ]
                 }

@@ -58,12 +58,12 @@ Simple config with one filter:
     "platform": "PlexWebhooks",
     "sensors": [
       {
-        "name": "Plex Movies",
+        "name": "Plex Movie",
         "filters": [
           [
             {
-              "path": "Metadata.librarySectionType",
-              "value": "movies"
+              "path": "Metadata.type",
+              "value": "movie"
             }
           ]
         ]
@@ -81,18 +81,18 @@ Advanced config with multiple sensors and filters with custom server options and
   "platform": "PlexWebhooks",
   "sensors": [
     {
-      "name": "Plex Movies",
+      "name": "Plex Movie",
       "filters": [
         [
           {
             "path": "Account.title",
-            "value": "Guest"
+            "value": "User"
           }
         ],
         [
           {
-            "path": "Metadata.librarySectionType",
-            "value": "movies"
+            "path": "Metadata.type",
+            "value": "movie"
           },
           {
             "path": "Player.title",
@@ -102,12 +102,27 @@ Advanced config with multiple sensors and filters with custom server options and
       ]
     },
     {
-      "name": "Plex Shows",
+      "name": "Plex Pre-roll",
       "filters": [
         [
           {
-            "path": "Metadata.librarySectionType",
-            "value": "shows"
+            "path": "Metadata.type",
+            "value": "clip"
+          },
+          {
+            "path": "Player.title",
+            "value": "Apple TV"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Plex Show",
+      "filters": [
+        [
+          {
+            "path": "Metadata.type",
+            "value": "episode"
           },
           {
             "path": "Player.title",

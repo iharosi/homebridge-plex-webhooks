@@ -1,0 +1,9 @@
+{
+  "name": "Plex Webhooks Platform",
+  "sensors": [
+    {
+      "name": "Plex Movies"
+    }
+  ],
+  "platform": "PlexWebhooks"
+}

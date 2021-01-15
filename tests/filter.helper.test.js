@@ -11,6 +11,7 @@ const payload1 = require('./data/payload_1.json');
 const payload2 = require('./data/payload_2.json');
 const payload3 = require('./data/payload_3.json');
 const config = require('./data/config.json');
+const configEmpty = require('./data/config_empty.json');
 
 chai.should();
 chai.use(sinonChai);
@@ -324,6 +325,24 @@ describe('Filter helper\'s', function() {
       );
       expect(log.verbose.getCall(2).args[0]).to.equal(
         ' + looking for "Roku" at "Player.title", found "Roku"'
+      );
+    });
+  });
+
+  describe('match function for sensor without filters', function() {
+    const log = {};
+
+    beforeEach(() => {
+      log.verbose = sinon.spy();
+    });
+
+    it('should return true', function() {
+      const filterHelper = new FilterHelper(log, payload1, configEmpty.sensors[0].filters);
+      const result = filterHelper.match();
+
+      expect(result).to.equal(true);
+      expect(log.verbose.getCall(0).args[0]).to.equal(
+        ' > no filter has given, matching by default...'
       );
     });
   });

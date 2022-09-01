@@ -64,8 +64,18 @@
                       },
                       "required": true
                     },
+                    "operator": {
+                      "title": "The operator",
+                      "type": "string",
+                      "default": "===",
+                      "oneOf": [
+                        { "title": "===", "enum": ["==="] },
+                        { "title": "!==", "enum": ["!=="] }
+                      ],
+                      "required": true
+                    },
                     "value": {
-                      "title": "The value what should be matched",
+                      "title": "The value",
                       "type": "string",
                       "placeholder": "e.g.: Apple TV",
                       "required": true
@@ -155,6 +165,11 @@
                           "type": "flex",
                           "flex-flow": "column",
                           "items": ["sensors[].filters[][].path"]
+                        },
+                        {
+                          "type": "flex",
+                          "flex-flow": "column",
+                          "items": ["sensors[].filters[][].operator"]
                         },
                         {
                           "type": "flex",

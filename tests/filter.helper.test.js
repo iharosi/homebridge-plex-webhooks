@@ -109,6 +109,16 @@ describe('Filter helper\'s', function() {
         ' - looking for "Apple TV" at "Player.title", found "Safari"'
       );
     });
+
+    it('should match when Player.title is not Apple TV in payload #2', function() {
+      const filterHelper = new FilterHelper(log, payload2);
+      const result = filterHelper._matchFilterPair('Player.title', 'Apple TV', '!==');
+
+      assert.equal(result, true);
+      expect(log.verbose).to.have.been.calledWith(
+        ' + looking for "Apple TV" at "Player.title", found "Safari"'
+      );
+    });
   });
 
   describe('_matchFilterArray function', function() {

@@ -1,3 +1,6 @@
+# ⚠️ Looking for contributors ⚠️
+This project is looking for contributors/collaborators. Feel free to contact me if you have time for managing this plugin.
+
 # Plex Webhooks Server plugin for Homebridge
 [![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)  
 [![license](https://badgen.net/github/license/iharosi/homebridge-plex-webhooks)](https://github.com/iharosi/homebridge-plex-webhooks/blob/master/LICENSE)
